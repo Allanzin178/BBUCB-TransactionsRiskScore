@@ -1,0 +1,25 @@
+{
+  "name": "neo4jtstest",
+  "version": "1.0.0",
+  "description": "Implementação neo4j ts",
+  "license": "ISC",
+  "author": "Allan Barros",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec node --no-warnings --loader ts-node/esm src/server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "neo4j-driver": "^5.28.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "cross-env": "^10.0.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
