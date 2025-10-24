@@ -1,0 +1,65 @@
+CREATE
+(ip1:IP {ip: "200.190.0.25", pais: "BR", tipo: "vpn"}),
+(ip2:IP {ip: "192.0.2.14", pais: "BR", tipo: "residencial"}),
+(ip3:IP {ip: "192.0.2.33", pais: "BR", tipo: "corporativo"}),
+(ip4:IP {ip: "192.0.2.22", pais: "BR", tipo: "residencial"}),
+(ip5:IP {ip: "192.0.2.47", pais: "BR", tipo: "movel"}),
+(ip6:IP {ip: "192.0.2.88", pais: "JP", tipo: "residencial"}),
+
+(dispositivo1:DISPOSITIVO {id: "DVC-001", tipo: "smartphone", modelo: "SM-S901E", os: "Android 13", user_agent: "Mozilla/5.0 (Linux; Android 13; SM-S901E)"}),
+(dispositivo2:DISPOSITIVO {id: "DVC-002", tipo: "smartphone", modelo: "SM-G998B", os: "Android 13", user_agent: "Mozilla/5.0 (Linux; Android 13; SM-G998B)"}),
+(dispositivo3:DISPOSITIVO {id: "DVC-003", tipo: "smartphone", modelo: "iPhone15,2", os: "iOS 17", user_agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"}),
+(dispositivo4:DISPOSITIVO {id: "DVC-004", tipo: "notebook", modelo: "MacBookPro18,3", os: "macOS 14", user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0)"}),
+(dispositivo5:DISPOSITIVO {id: "DVC-005", tipo: "iot", modelo: "ESP32-C3", os: "FreeRTOS", user_agent: "ESP32HTTPClient/1.0"}),
+
+(cliente1:CLIENTE {cpf_cnpj: "12345678901", nome: "João da Silva", tipo: "PF"}),
+(cliente2:CLIENTE {cpf_cnpj: "98765432000199", nome: "Enzo Oliveira Andrade", tipo: "PF"}),
+(cliente3:CLIENTE {cpf_cnpj: "55566677788", nome: "Maria Oliveira", tipo: "PF"}),
+(cliente4:CLIENTE {cpf_cnpj: "33445566000120", nome: "Comercial Andrade ME", tipo: "PJ"}),
+
+(conta1:CONTA {numero_conta_banco: "001-123456-1", data_criacao: datetime("2022-03-15T09:15:30")}),
+(conta2:CONTA {numero_conta_banco: "104-987654-0", data_criacao: datetime("2023-01-10T14:45:10")}),
+(conta3:CONTA {numero_conta_banco: "033-444555-9", data_criacao: datetime("2021-11-22T08:05:55")}),
+(conta4:CONTA {numero_conta_banco: "237-222333-4", data_criacao: datetime("2025-05-05T16:20:40")}),
+(conta5:CONTA {numero_conta_banco: "237-765432-9", data_criacao: datetime("2025-04-10T11:50:00")}),
+
+(cliente1) -[:POSSUI]-> (conta1),
+(cliente2) -[:POSSUI]-> (conta2),
+(cliente3) -[:POSSUI]-> (conta3),
+(cliente1) -[:POSSUI]-> (conta5),
+(cliente4) -[:POSSUI]-> (conta4),
+
+(cliente1) -[:LOGA {data: datetime("2025-10-01T10:15:30")}]-> (dispositivo1),
+(cliente2) -[:LOGA {data: datetime("2025-10-05T08:34:12")}]-> (dispositivo2),
+(cliente3) -[:LOGA {data: datetime("2025-10-07T17:21:50")}]-> (dispositivo3),
+(cliente4) -[:LOGA {data: datetime("2025-09-07T11:44:41")}]-> (dispositivo4),
+(cliente4) -[:LOGA {data: datetime("2025-10-03T20:54:12")}]-> (dispositivo5),
+
+(cliente3) -[:RELACIONA_COM {tipo: "pai"}]-> (cliente2),
+
+(cliente2) -[:RELACIONA_COM {tipo: "filho"}]-> (cliente3),
+
+(conta1) -[:TRANSACIONA {tipo: "PIX", valor: 100.0, data: datetime("2025-10-07T12:44:30"), fraudulenta: false}]-> (conta2),
+(conta3) -[:TRANSACIONA {tipo: "PIX", valor: 1000.0, data: datetime("2025-10-07T12:44:41"), fraudulenta: false}]-> (conta5),
+(conta1) -[:TRANSACIONA {tipo: "PIX", valor: 54.90, data: datetime("2025-10-07T09:30:00"), fraudulenta: false}]-> (conta3),
+(conta5) -[:TRANSACIONA {tipo: "TED", valor: 99.90, data: datetime("2025-10-07T14:00:30"), fraudulenta: false}]-> (conta4),
+(conta3) -[:TRANSACIONA {tipo: "PIX", valor: 150.0, data: datetime("2025-10-02T13:24:27"), fraudulenta: false}]-> (conta2),
+(conta2) -[:TRANSACIONA {tipo: "TED", valor: 750.0, data: datetime("2025-10-07T15:54:12"), fraudulenta: false}]-> (conta5),
+
+(dispositivo1) -[:CONECTA {data: datetime("2025-10-07T09:00:00")}]-> (ip1),
+(dispositivo2) -[:CONECTA {data: datetime("2025-10-07T09:15:30")}]-> (ip2),
+(dispositivo3) -[:CONECTA {data: datetime("2025-10-07T09:30:45")}]-> (ip3),
+(dispositivo4) -[:CONECTA {data: datetime("2025-10-07T10:05:20")}]-> (ip4),
+(dispositivo4) -[:CONECTA {data: datetime("2025-10-07T10:20:50")}]-> (ip5),
+(dispositivo5) -[:CONECTA {data: datetime("2025-10-07T11:00:10")}]-> (ip6),
+(dispositivo2) -[:CONECTA {data: datetime("2025-10-07T11:30:00")}]-> (ip1),
+(dispositivo3) -[:CONECTA {data: datetime("2025-10-07T12:15:25")}]-> (ip2);
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+CREATE CONSTRAINT ip_unique IF NOT EXISTS
+FOR (ip:IP)
+REQUIRE ip.ip IS UNIQUE;
+
+CREATE CONSTRAINT dispositivo_id_unique IF NOT EXISTS
+FOR (d:DISPOSITIVO)
+REQUIRE d.id IS UNIQUE;
+
+CREATE CONSTRAINT cliente_unique_cpf_cnpj_unique IF NOT EXISTS
+FOR (c:CLIENTE)
+REQUIRE c.cpf_cnpj IS UNIQUE;
+
+CREATE CONSTRAINT conta_unique_numero_unique IF NOT EXISTS
+FOR (c:CONTA)
+REQUIRE c.numero_conta_banco IS UNIQUE;
