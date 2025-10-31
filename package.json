@@ -4,10 +4,11 @@
   "description": "Implementação neo4j ts",
   "license": "ISC",
   "author": "Allan Barros",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --exec node --no-warnings --loader ts-node/esm src/server.ts",
+    "dev": "cross-env NODE_ENV=development tsx watch .",
+    "populate-db": "tsx ./src/scripts/populate-neo4j.ts",
     "build": "tsc"
   },
   "dependencies": {
@@ -19,7 +20,7 @@
     "@types/express": "^5.0.3",
     "cross-env": "^10.0.0",
     "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   }
 }
