@@ -2,11 +2,14 @@ import neo4j, { Driver, EagerResult } from 'neo4j-driver'
 import dotenv from 'dotenv'
 dotenv.config()
 
+type DriverConfigs = {
+    verbose?: boolean
+}
 export class DriverService {
     private driver: Driver
     private exitSignals: Array<string> = ['SIGTERM', 'SIGINT', 'SIGQUIT', 'SIGHUP'];
 
-    constructor() {
+    constructor(config?: DriverConfigs) {
         if (!process.env.NEO4J_PASSWORD){
             throw new Error("NEO4J_PASSWORD não está definido no .env")
         }
@@ -17,7 +20,7 @@ export class DriverService {
         )
 
         this.assureConnection().then(() => {
-            console.log('✅ Sucesso na conexão ao neo4j')
+            config?.verbose && console.log('✅ Sucesso na conexão ao neo4j\n')
             this.setupSignalHandlers()
         })
         
