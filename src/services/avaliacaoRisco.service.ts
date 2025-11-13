@@ -1,6 +1,11 @@
 import type { TransactionEntity } from "../entities/transaction.entity.ts";
 import type { AvaliacaoRiscoRepository } from "../repositories/avaliacaoRisco.repository.ts";
 
+interface RiscoInterface {
+    valor: number,
+    motivo: string
+}
+
 // Aqui fica toda a logica de calcular o risco
 export class AvaliacaoRiscoService {
     private readonly MAX_SCORE_RISCO = 10
@@ -8,8 +13,9 @@ export class AvaliacaoRiscoService {
     constructor(private readonly repository: AvaliacaoRiscoRepository) {}
 
     async avaliarRisco(transaction: TransactionEntity) {
-        const riscoMediaGastoUsuario = await this.avaliarPadraoGastosUsuario(transaction)
-        const listaRiscos = []
+        const riscoMediaGastoUsuario: RiscoInterface = await this.avaliarPadraoGastosUsuario(transaction)
+
+        const listaRiscos: RiscoInterface[] = []
 
         let scoreRisco = 0
         let risco = "Baixo"
@@ -17,7 +23,7 @@ export class AvaliacaoRiscoService {
         listaRiscos.push(riscoMediaGastoUsuario)
 
         listaRiscos.forEach(risco => {
-            scoreRisco += risco
+            scoreRisco += risco.valor
         })
 
         if(scoreRisco >= this.MAX_SCORE_RISCO) {
@@ -42,7 +48,8 @@ export class AvaliacaoRiscoService {
         }
     }
 
-    async avaliarPadraoGastosUsuario(transaction: TransactionEntity) {
+    async avaliarPadraoGastosUsuario(transaction: TransactionEntity): Promise<RiscoInterface> {
+        let risco = 0;
         const { records: recordsGetClientePelaConta } = await this.repository.getClientePelaConta(transaction.contaOrigem)
 
         const clienteResultado = recordsGetClientePelaConta[0]?.get('cliente')
@@ -62,14 +69,20 @@ export class AvaliacaoRiscoService {
         // TODO: Adicionar motivo no retorno
         switch (true){
             case difMediaValor <= 0:
-                return 0
+                risco = 0
+                break
             case difMediaValor > 0 && difMediaValor <= estatisticas.mediaGasto * 2:
-                return 2
+                risco = 2
+                break
             case difMediaValor > estatisticas.mediaGasto * 2:
-                return 3
+                risco = 3
+                break
         }
 
-        return 0
+        return {
+            valor: risco,
+            motivo: "Média de gastos irregular"
+        }
         
     }
 
