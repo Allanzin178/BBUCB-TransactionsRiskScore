@@ -17,3 +17,8 @@
 3. Caso de algum erro, tenha certeza que o neo4j esteja com o servidor online
 
 > Obs: Caso após a montagem do docker, você tentar iniciar um script e der erro no banco de dados, verifique seu arquivo .env ou espere alguns minutos (o neo4j demora algum tempo para inicializar por completo)
+
+## Populate
+
+1. Use ``npm run populate-db`` para popular seu banco de dados com informações ficticias
+2. Aviso: Se caso você esteja utilizando o neo4j pela sua maquina ao invés de pelo docker, lembre-se de trocar a instância conectada para a certa

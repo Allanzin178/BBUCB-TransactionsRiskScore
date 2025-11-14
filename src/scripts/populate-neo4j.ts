@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename)
 
 const pastaArtefatos = path.join(__dirname, '..', '..', 'artefatos')
 
-async function executeBigQueryString(bigQueryStr: string, neo4jDriver: DriverService) {
+async function executeBigQueryString(bigQueryStr: string, neo4jDriver: DriverService, name?: string) {
     const arrQueries = bigQueryStr
         .split(';') // Separa por ponto e vírgula
         .map((query) => query.trim()) // Tira os espaços no inicio e final das strings das queries
@@ -27,17 +27,19 @@ async function executeBigQueryString(bigQueryStr: string, neo4jDriver: DriverSer
         } 
     }
 
-    todasBemSucedidas && console.log("Todas foram bem sucedidas")
+    todasBemSucedidas && console.log(`${name && `[QUERY: ${name}] `}Todas queries foram sucedidas \n`)
     return todasBemSucedidas
 }
 
-async function executeQueryString(queryStr: string, neo4jDriver: DriverService) {
+async function executeQueryString(queryStr: string, neo4jDriver: DriverService, name?: string) {
     try {
         await neo4jDriver.executeQuery(queryStr)
+
+        console.log(`${name && `[QUERY: ${name}] `}Query concluida com sucesso`)
     } catch (error: any) {
         if (error.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
-            console.log('Erro de constraint: Tentativa de inserir registros com campos unicos iguais');
-            console.log('Detalhes:', error.message);
+            console.log(`${name && `[QUERY: ${name}] `}[ERROR]: Tentativa de inserir registros com campos unicos iguais`);
+            console.log(`[DETALHES]: ${error.message} \n`);
             return
         } 
 
@@ -57,14 +59,14 @@ async function main() {
         output: process.stdout
     })
 
-    await rl.question("[AVISO] Se você tiver um banco importante conectado, lembre de trocar para o que será utilizado. Se estiver usando o docker ignore esse aviso (enter para continuar)")
+    await rl.question("\n[AVISO] Se você tiver um banco importante conectado, lembre de trocar para o que será utilizado (README). Se estiver usando o docker ignore esse aviso (enter para continuar) \n")
 
     const neo4jDriver = new DriverService({
         verbose: false
     })
 
-    executeBigQueryString(constraintsStr, neo4jDriver)
-    executeQueryString(creationStr, neo4jDriver)
+    executeBigQueryString(constraintsStr, neo4jDriver, "Constraint")
+    executeQueryString(creationStr, neo4jDriver, "Criação dos dados")
 }
 
 main()
