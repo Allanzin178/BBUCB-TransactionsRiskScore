@@ -1,3 +1,4 @@
+import { Transaction } from "neo4j-driver";
 import type { TransactionEntity } from "../entities/transaction.entity.ts";
 import type { AvaliacaoRiscoRepository } from "../repositories/avaliacaoRisco.repository.ts";
 
@@ -22,7 +23,8 @@ export class AvaliacaoRiscoService {
     constructor(private readonly repository: AvaliacaoRiscoRepository) {}
 
     async avaliarRisco(transaction: TransactionEntity): Promise<AvaliacaoInterface> {
-        const riscoMediaGastoUsuario: RiscoInterface = await this.avaliarPadraoGastosUsuario(transaction)
+        const riscoMediaGastoUsuario: RiscoInterface = await this.avaliarPadraoGastosUsuario(transaction) 
+        const riscoHoraDaTransacao = await this.avaliarHoraDaTransacao(transaction)
 
         const listaRiscos: RiscoInterface[] = []
         const avaliacao: AvaliacaoInterface = {
@@ -34,6 +36,7 @@ export class AvaliacaoRiscoService {
         let risco = "Baixo"
 
         listaRiscos.push(riscoMediaGastoUsuario)
+        listaRiscos.push(riscoHoraDaTransacao)
 
         listaRiscos.forEach((risco) => {
             avaliacao.score += risco.valor
@@ -103,6 +106,19 @@ export class AvaliacaoRiscoService {
             motivo: "Média de gastos irregular"
         }
         
+    }
+
+    async avaliarHoraDaTransacao(transacao: TransactionEntity): Promise<RiscoInterface>{
+        let risco = 0
+        const date = new Date(transacao.dataTransacao!); // converte a string para Date
+        const hour = date.getHours();  
+        if(hour >=22 || hour < 6){
+            risco = 2
+        }
+        return {
+            valor: risco,
+            motivo: "Transação em horário suspeito"
+        }
     }
 
     async getAllNodes() {
