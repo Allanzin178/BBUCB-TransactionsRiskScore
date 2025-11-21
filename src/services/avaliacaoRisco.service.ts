@@ -1,9 +1,18 @@
 import type { TransactionEntity } from "../entities/transaction.entity.ts";
 import type { AvaliacaoRiscoRepository } from "../repositories/avaliacaoRisco.repository.ts";
 
+type Motivo = {
+    nome: string,
+    nivel: "Médio" | "Alto"
+}
+interface AvaliacaoInterface {
+    score: number,
+    motivos: Motivo[]
+}
+
 interface RiscoInterface {
     valor: number,
-    motivo: string
+    motivo: string,
 }
 
 // Aqui fica toda a logica de calcular o risco
@@ -12,18 +21,31 @@ export class AvaliacaoRiscoService {
 
     constructor(private readonly repository: AvaliacaoRiscoRepository) {}
 
-    async avaliarRisco(transaction: TransactionEntity) {
+    async avaliarRisco(transaction: TransactionEntity): Promise<AvaliacaoInterface> {
         const riscoMediaGastoUsuario: RiscoInterface = await this.avaliarPadraoGastosUsuario(transaction)
 
         const listaRiscos: RiscoInterface[] = []
+        const avaliacao: AvaliacaoInterface = {
+            score: 0,
+            motivos: []
+        }
 
         let scoreRisco = 0
         let risco = "Baixo"
 
         listaRiscos.push(riscoMediaGastoUsuario)
 
-        listaRiscos.forEach(risco => {
-            scoreRisco += risco.valor
+        listaRiscos.forEach((risco) => {
+            avaliacao.score += risco.valor
+
+            if (risco.valor >= 2) {
+                const motivo: Motivo = {
+                    nome: risco.motivo,
+                    nivel: risco.valor > 2 ? "Alto" : "Médio"
+                }
+                
+                avaliacao.motivos.push(motivo)
+            }
         })
 
         if(scoreRisco >= this.MAX_SCORE_RISCO) {
@@ -42,10 +64,7 @@ export class AvaliacaoRiscoService {
                 break
         }
         
-        return {
-            risco: risco,
-            scoreRisco: scoreRisco
-        }
+        return avaliacao
     }
 
     async avaliarPadraoGastosUsuario(transaction: TransactionEntity): Promise<RiscoInterface> {
