@@ -219,7 +219,7 @@ export class AvaliacaoRiscoService {
     async avaliarVPN(ip: any): Promise<RiscoInterface> {
         if (ip && ip.properties.tipo === 'vpn') {
             return {
-                valor: 3,
+                valor: 2,
                 motivo: "Uso de VPN"
             }
         }
@@ -229,7 +229,7 @@ export class AvaliacaoRiscoService {
     async avaliarIPEstrangeiro(ip: any): Promise<RiscoInterface> {
         if (ip && ip.properties.pais !== 'BR') {
             return {
-                valor: 3,
+                valor: 2,
                 motivo: "IP estrangeiro"
             }
         }
