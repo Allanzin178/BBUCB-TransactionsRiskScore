@@ -30,9 +30,6 @@ export class AvaliacaoRiscoService {
             motivos: []
         }
 
-        let scoreRisco = 0
-        let risco = "Baixo"
-
         listaRiscos.push(riscoMediaGastoUsuario)
 
         listaRiscos.forEach((risco) => {
@@ -48,22 +45,10 @@ export class AvaliacaoRiscoService {
             }
         })
 
-        if(scoreRisco >= this.MAX_SCORE_RISCO) {
-            scoreRisco = this.MAX_SCORE_RISCO
+        if(avaliacao.score >= this.MAX_SCORE_RISCO) {
+            avaliacao.score = this.MAX_SCORE_RISCO
         }
 
-        switch(true) {
-            case scoreRisco <= 2:
-                risco = "Baixo"
-                break
-            case scoreRisco > 2 && scoreRisco < 6:
-                risco = "Medio"
-                break
-            case scoreRisco >= 6:
-                risco = "Alto"
-                break
-        }
-        
         return avaliacao
     }
 
@@ -85,7 +70,6 @@ export class AvaliacaoRiscoService {
         console.log(estatisticas.mediaGasto, transaction.valor)
         console.log(difMediaValor)
         
-        // TODO: Adicionar motivo no retorno
         switch (true){
             case difMediaValor <= 0:
                 risco = 0
