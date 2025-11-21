@@ -63,7 +63,7 @@ export class DriverService {
         
     }
 
-    private async closeDriver(){
+    async closeDriver(){
         try{
             console.log('❌ Fechando driver')
             await this.driver.close()

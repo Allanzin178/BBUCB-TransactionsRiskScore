@@ -65,8 +65,12 @@ async function main() {
         verbose: false
     })
 
-    executeBigQueryString(constraintsStr, neo4jDriver, "Constraint")
-    executeQueryString(creationStr, neo4jDriver, "Criação dos dados")
+    await executeBigQueryString(constraintsStr, neo4jDriver, "Constraint")
+    await executeQueryString(creationStr, neo4jDriver, "Criação dos dados")
+
+    rl.close()
+    await neo4jDriver.closeDriver()
+    process.exit(0)
 }
 
 main()
