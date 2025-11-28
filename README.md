@@ -15,7 +15,7 @@
 ## Variaveis aceitaveis no .env
 
 - **NEO4J_DATABASE** - Indica qual nome configurado no seu neo4j
-- **NEO4J_PASSWORD** - Indica qual senha do neo4j
+- **NEO4J_PASSWORD** - Indica qual senha do neo4j (OBRIGATORIO - Mínimo de 8 dígitos) 
 
 ## Instalação e passo a passo pelo docker
 
@@ -170,5 +170,5 @@ Para testar valores e regras, além de visualizar uma planilha com as formulas d
 Sistema desenvolvido por: 
 
 - **Allan Barros de Medeiros Miron** - Desenvolvedor líder - [Allanzin178](https://github.com/Allanzin178/)
-- **Kalleby Rodrigues Frutuoso** - Auxilio no desenvolvimento de regras iniciais - [DevKalleby](https://github.com/DevKalleby/)
+- **Kalleby Rodrigues Frutuoso** - Auxilio no desenvolvimento de regras - [DevKalleby](https://github.com/DevKalleby/)
 
