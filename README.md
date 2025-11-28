@@ -159,10 +159,10 @@ Sendo que "dataTransacao" é um campo opcional, se não passado irá pegar a dat
 
 ## Calculo
 
-Para calcularmos o risco de uma determinada regra, pegamos o valor dela e multiplicamos pelo respectivo peso. Após isso, somamos todos os riscos de todas as regras e dividimos pela quantidade de regras
-Como exemplo, digamos que temos duas regras, com valor e peso de 2 - 4 e 5 - 2
-Agora fazemos o calculo: ((2 * 4) + (5 * 2)) / 2 
-É uma média ponderada alterada, onde não dividimos pela soma dos pesos, e sim pela quantidade de regras
+Para calcularmos o risco de uma determinada regra, pegamos o valor dela e multiplicamos pelo respectivo peso. Após isso, somamos todos os riscos de todas as regras e dividimos pela quantidade de regras <br>
+Como exemplo, digamos que temos duas regras, com valor e peso de 2 - 4 e 5 - 2 <br>
+Agora fazemos o calculo: ((2 * 4) + (5 * 2)) / 2  <br>
+É uma média ponderada alterada, onde não dividimos pela soma dos pesos, e sim pela quantidade de regras <br>
 Para testar valores e regras, além de visualizar uma planilha com as formulas dos calculos e alguns exemplos, visite [esse link](https://docs.google.com/spreadsheets/d/1qGmT2o2lihzX0sdq1a9Tdr1SSHA4EYhVITWa2UeCA60/edit?usp=sharing)
 
 ## Autores
@@ -172,3 +172,7 @@ Sistema desenvolvido por:
 - **Allan Barros de Medeiros Miron** - Desenvolvedor líder - [Allanzin178](https://github.com/Allanzin178/)
 - **Kalleby Rodrigues Frutuoso** - Auxilio no desenvolvimento de regras - [DevKalleby](https://github.com/DevKalleby/)
 
+## Documentações 
+
+- Documento Parcial SQUAD 27 - [**Acesse aqui**](https://docs.google.com/document/d/1yRkPSSGt5HOupkb2KLVK9kuTq3rZuuwTFhPL1lHghCI/edit?usp=sharing)
+- Documento Final SQUAD 27 - [**Acesse aqui**](https://docs.google.com/document/d/1dxqWtep9P3T_CsJ06avFT7y95JV4WNK1cUaf1BErbcg/edit?usp=sharing)
