@@ -56,27 +56,29 @@ Sendo que "dataTransacao" é um campo opcional, se não passado irá pegar a dat
 ## Exemplos
 
 > Exemplos de corpo de requisição para analise de risco
-1. ``
-    {
-        "tipoTransacao": "PIX",
-        "contaOrigem": "033-444555-9",
-        "contaDestino": "104-987654-0", 
-        "valor": 100
-    }
-`` 
+1. Transação exemplo 01:
+```
+{
+    "tipoTransacao": "PIX",
+    "contaOrigem": "033-444555-9",
+    "contaDestino": "104-987654-0", 
+    "valor": 100
+}
+```
 - Esperado: score 6 (caso feito de madrugada o score deve aumentar)
 - Motivos: 
     - Transação entre contas relacionadas (seguro)
     - Dispositivo da conta destino marcado como suspeito (risco alto)
 
-2. ``
-    {
-        "tipoTransacao": "PIX",
-        "contaOrigem": "033-444555-9",
-        "contaDestino": "104-987654-0", 
-        "valor": 1000
-    }
-`` 
+2. Transação exemplo 02:
+```
+{
+    "tipoTransacao": "PIX",
+    "contaOrigem": "033-444555-9",
+    "contaDestino": "104-987654-0", 
+    "valor": 1000
+}
+```
 - Esperado: score 7 (caso feito de madrugada o score deve aumentar)
 - Motivos: 
     - Transação entre contas relacionadas (seguro)
