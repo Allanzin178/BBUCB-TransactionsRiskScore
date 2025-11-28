@@ -1,7 +1,7 @@
 import express from 'express'
-import { AvaliacaoRiscoController } from './controllers/avaliacaoRisco.controller.ts'
-import { AvaliacaoRiscoService } from './services/avaliacaoRisco.service.ts'
-import { AvaliacaoRiscoRepository } from './repositories/avaliacaoRisco.repository.ts'
+import { AvaliacaoRiscoController } from './controllers/avaliacao-risco.controller.ts'
+import { AvaliacaoRiscoService } from './services/avaliacao-risco.service.ts'
+import { AvaliacaoRiscoRepository } from './repositories/avaliacao-risco.repository.ts'
 import { DriverService } from './config/neo4j.config.ts'
 
 const app = express()

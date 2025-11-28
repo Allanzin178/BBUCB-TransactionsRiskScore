@@ -1,6 +1,6 @@
 import { Transaction } from "neo4j-driver";
 import type { TransactionEntity } from "../entities/transaction.entity.ts";
-import type { AvaliacaoRiscoRepository } from "../repositories/avaliacaoRisco.repository.ts";
+import type { AvaliacaoRiscoRepository } from "../repositories/avaliacao-risco.repository.ts";
 
 type Motivo = {
     nome: string,

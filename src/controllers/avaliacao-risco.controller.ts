@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type { AvaliacaoRiscoService } from "../services/avaliacaoRisco.service.ts";
+import type { AvaliacaoRiscoService } from "../services/avaliacao-risco.service.ts";
 import { TransactionEntity } from "../entities/transaction.entity.ts";
 
 export class AvaliacaoRiscoController {
